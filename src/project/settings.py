@@ -429,3 +429,5 @@ if SHOW_DEBUG_TOOLBAR:
         ('debug_toolbar.middleware.DebugToolbarMiddleware',) +
         MIDDLEWARE_CLASSES[2:]
     )
+
+POSTGIOS_VERSION = (2, 1, 8)
