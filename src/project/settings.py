@@ -432,11 +432,11 @@ if SHOW_DEBUG_TOOLBAR:
 
 POSTGIOS_VERSION = (2, 1, 8)
 
-#import raven
-#
-#RAVEN_CONFIG = {
-#    'dsn': 'https://b5272f48ce604499940c3ba8e5375038:b81bc4b96d7d4074b3e5111b3ee9b6ca@app.getsentry.com/60332',
-#    # If you are using git, you can also automatically configure the
-#    # release based on the git info.
-#    'release': raven.fetch_git_sha(os.path.dirname(__file__)),
-#}
+import raven
+
+RAVEN_CONFIG = {
+    'dsn': 'https://b5272f48ce604499940c3ba8e5375038:b81bc4b96d7d4074b3e5111b3ee9b6ca@app.getsentry.com/60332',
+    # If you are using git, you can also automatically configure the
+    # release based on the git info.
+    'release': raven.fetch_git_sha(os.path.dirname(__file__)),
+}
