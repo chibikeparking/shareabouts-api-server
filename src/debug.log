@@ -1,0 +1,189 @@
+DEBUG 2016-01-19 18:20:23,884 django.db.backends.schema: CREATE TABLE "django_migrations" ("id" serial NOT NULL PRIMARY KEY, "app" varchar(255) NOT NULL, "name" varchar(255) NOT NULL, "applied" timestamp with time zone NOT NULL); (params [])
+DEBUG 2016-01-19 18:20:24,063 django.db.backends.schema: CREATE TABLE "django_content_type" ("id" serial NOT NULL PRIMARY KEY, "name" varchar(100) NOT NULL, "app_label" varchar(100) NOT NULL, "model" varchar(100) NOT NULL); (params [])
+DEBUG 2016-01-19 18:20:24,084 django.db.backends.schema: ALTER TABLE "django_content_type" ADD CONSTRAINT "django_content_type_app_label_45f3b1d93ec8c61c_uniq" UNIQUE ("app_label", "model"); (params [])
+DEBUG 2016-01-19 18:20:24,129 django.db.backends.schema: CREATE TABLE "auth_permission" ("id" serial NOT NULL PRIMARY KEY, "name" varchar(50) NOT NULL, "content_type_id" integer NOT NULL, "codename" varchar(100) NOT NULL, UNIQUE ("content_type_id", "codename")); (params [])
+DEBUG 2016-01-19 18:20:24,151 django.db.backends.schema: CREATE TABLE "auth_group" ("id" serial NOT NULL PRIMARY KEY, "name" varchar(80) NOT NULL UNIQUE); (params [])
+DEBUG 2016-01-19 18:20:24,155 django.db.backends.schema: CREATE TABLE "auth_group_permissions" ("id" serial NOT NULL PRIMARY KEY, "group_id" integer NOT NULL, "permission_id" integer NOT NULL, UNIQUE ("group_id", "permission_id")); (params [])
+DEBUG 2016-01-19 18:20:24,179 django.db.backends.schema: CREATE INDEX auth_permission_417f1b1c ON "auth_permission" ("content_type_id"); (params [])
+DEBUG 2016-01-19 18:20:24,180 django.db.backends.schema: ALTER TABLE "auth_permission" ADD CONSTRAINT "auth_content_type_id_508cf46651277a81_fk_django_content_type_id" FOREIGN KEY ("content_type_id") REFERENCES "django_content_type" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:24,181 django.db.backends.schema: CREATE INDEX auth_group_permissions_0e939a4f ON "auth_group_permissions" ("group_id"); (params [])
+DEBUG 2016-01-19 18:20:24,181 django.db.backends.schema: ALTER TABLE "auth_group_permissions" ADD CONSTRAINT "auth_group_permissio_group_id_689710a9a73b7457_fk_auth_group_id" FOREIGN KEY ("group_id") REFERENCES "auth_group" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:24,182 django.db.backends.schema: CREATE INDEX auth_group_permissions_8373b171 ON "auth_group_permissions" ("permission_id"); (params [])
+DEBUG 2016-01-19 18:20:24,183 django.db.backends.schema: ALTER TABLE "auth_group_permissions" ADD CONSTRAINT "auth_group_permission_id_1f49ccbbdc69d2fc_fk_auth_permission_id" FOREIGN KEY ("permission_id") REFERENCES "auth_permission" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:24,254 django.db.backends.schema: CREATE TABLE "auth_user" ("id" serial NOT NULL PRIMARY KEY, "password" varchar(128) NOT NULL, "last_login" timestamp with time zone NOT NULL, "is_superuser" boolean NOT NULL, "username" varchar(30) NOT NULL UNIQUE, "first_name" varchar(30) NOT NULL, "last_name" varchar(30) NOT NULL, "email" varchar(75) NOT NULL, "is_staff" boolean NOT NULL, "is_active" boolean NOT NULL, "date_joined" timestamp with time zone NOT NULL); (params [])
+DEBUG 2016-01-19 18:20:24,280 django.db.backends.schema: CREATE TABLE "sa_api_activity" ("id" serial NOT NULL PRIMARY KEY, "created_datetime" timestamp with time zone NOT NULL, "updated_datetime" timestamp with time zone NOT NULL, "action" varchar(16) NOT NULL, "source" text NULL); (params [])
+DEBUG 2016-01-19 18:20:24,307 django.db.backends.schema: CREATE TABLE "apikey_apikey" ("id" serial NOT NULL PRIMARY KEY, "key" varchar(32) NOT NULL UNIQUE, "logged_ip" inet NULL, "last_used" timestamp with time zone NOT NULL); (params [])
+DEBUG 2016-01-19 18:20:24,336 django.db.backends.schema: CREATE TABLE "sa_api_attachment" ("id" serial NOT NULL PRIMARY KEY, "created_datetime" timestamp with time zone NOT NULL, "updated_datetime" timestamp with time zone NOT NULL, "file" varchar(100) NOT NULL, "name" varchar(128) NULL); (params [])
+DEBUG 2016-01-19 18:20:24,365 django.db.backends.schema: CREATE TABLE "sa_api_v2_dataindex" ("id" serial NOT NULL PRIMARY KEY, "attr_name" varchar(100) NOT NULL, "attr_type" varchar(10) NOT NULL); (params [])
+DEBUG 2016-01-19 18:20:24,394 django.db.backends.schema: CREATE TABLE "sa_api_dataset" ("id" serial NOT NULL PRIMARY KEY, "display_name" varchar(128) NOT NULL, "slug" varchar(128) NOT NULL, "owner_id" integer NOT NULL); (params [])
+DEBUG 2016-01-19 18:20:24,425 django.db.backends.schema: CREATE TABLE "sa_api_v2_datasetpermission" ("id" serial NOT NULL PRIMARY KEY, "submission_set" varchar(128) NOT NULL, "can_retrieve" boolean NOT NULL, "can_create" boolean NOT NULL, "can_update" boolean NOT NULL, "can_destroy" boolean NOT NULL, "priority" integer NOT NULL CHECK ("priority" >= 0), "dataset_id" integer NOT NULL); (params [])
+DEBUG 2016-01-19 18:20:24,502 django.db.backends.schema: CREATE TABLE "sa_api_datasnapshot" ("id" serial NOT NULL PRIMARY KEY, "json" text NOT NULL, "csv" text NOT NULL); (params [])
+DEBUG 2016-01-19 18:20:24,535 django.db.backends.schema: CREATE TABLE "sa_api_datasnapshotrequest" ("id" serial NOT NULL PRIMARY KEY, "submission_set" varchar(128) NOT NULL, "include_private" boolean NOT NULL, "include_invisible" boolean NOT NULL, "include_submissions" boolean NOT NULL, "requested_at" timestamp with time zone NOT NULL, "status" text NOT NULL, "fulfilled_at" timestamp with time zone NULL, "guid" text NOT NULL UNIQUE, "dataset_id" integer NOT NULL, "requester_id" integer NULL); (params [])
+DEBUG 2016-01-19 18:20:24,572 django.db.backends.schema: CREATE TABLE "sa_api_group" ("id" serial NOT NULL PRIMARY KEY, "name" varchar(32) NOT NULL, "dataset_id" integer NOT NULL); (params [])
+DEBUG 2016-01-19 18:20:24,575 django.db.backends.schema: CREATE TABLE "sa_api_group_submitters" ("id" serial NOT NULL PRIMARY KEY, "group_id" integer NOT NULL, "user_id" integer NOT NULL, UNIQUE ("group_id", "user_id")); (params [])
+DEBUG 2016-01-19 18:20:24,610 django.db.backends.schema: CREATE TABLE "sa_api_v2_grouppermission" ("id" serial NOT NULL PRIMARY KEY, "submission_set" varchar(128) NOT NULL, "can_retrieve" boolean NOT NULL, "can_create" boolean NOT NULL, "can_update" boolean NOT NULL, "can_destroy" boolean NOT NULL, "priority" integer NOT NULL CHECK ("priority" >= 0), "group_id" integer NOT NULL); (params [])
+DEBUG 2016-01-19 18:20:24,648 django.db.backends.schema: CREATE TABLE "sa_api_v2_indexedvalue" ("id" serial NOT NULL PRIMARY KEY, "value" varchar(100) NULL, "index_id" integer NOT NULL); (params [])
+DEBUG 2016-01-19 18:20:24,686 django.db.backends.schema: CREATE TABLE "sa_api_v2_keypermission" ("id" serial NOT NULL PRIMARY KEY, "submission_set" varchar(128) NOT NULL, "can_retrieve" boolean NOT NULL, "can_create" boolean NOT NULL, "can_update" boolean NOT NULL, "can_destroy" boolean NOT NULL, "priority" integer NOT NULL CHECK ("priority" >= 0), "key_id" integer NOT NULL); (params [])
+DEBUG 2016-01-19 18:20:24,726 django.db.backends.schema: CREATE TABLE "cors_origin" ("id" serial NOT NULL PRIMARY KEY, "pattern" varchar(100) NOT NULL, "logged_ip" inet NULL, "last_used" timestamp with time zone NOT NULL, "dataset_id" integer NOT NULL); (params [])
+DEBUG 2016-01-19 18:20:24,769 django.db.backends.schema: CREATE TABLE "sa_api_v2_originpermission" ("id" serial NOT NULL PRIMARY KEY, "submission_set" varchar(128) NOT NULL, "can_retrieve" boolean NOT NULL, "can_create" boolean NOT NULL, "can_update" boolean NOT NULL, "can_destroy" boolean NOT NULL, "priority" integer NOT NULL CHECK ("priority" >= 0), "origin_id" integer NOT NULL); (params [])
+DEBUG 2016-01-19 18:20:24,810 django.db.backends.schema: CREATE TABLE "sa_api_submittedthing" ("id" serial NOT NULL PRIMARY KEY, "created_datetime" timestamp with time zone NOT NULL, "updated_datetime" timestamp with time zone NOT NULL, "data" text NOT NULL, "visible" boolean NOT NULL); (params [])
+DEBUG 2016-01-19 18:20:24,854 django.db.backends.schema: CREATE TABLE "sa_api_submission" ("submittedthing_ptr_id" integer NOT NULL PRIMARY KEY, "set_name" text NOT NULL); (params [])
+DEBUG 2016-01-19 18:20:24,899 django.db.backends.schema: CREATE TABLE "sa_api_place" ("submittedthing_ptr_id" integer NOT NULL PRIMARY KEY, "geometry" geometry(GEOMETRY,4326) NOT NULL); (params [])
+DEBUG 2016-01-19 18:20:24,907 django.db.backends.schema: CREATE INDEX "sa_api_place_geometry_id" ON "sa_api_place" USING GIST ("geometry" ); (params [])
+DEBUG 2016-01-19 18:20:24,953 django.db.backends.schema: CREATE TABLE "sa_api_webhook" ("id" serial NOT NULL PRIMARY KEY, "created_datetime" timestamp with time zone NOT NULL, "updated_datetime" timestamp with time zone NOT NULL, "submission_set" varchar(128) NOT NULL, "event" varchar(128) NOT NULL, "url" varchar(2048) NOT NULL, "dataset_id" integer NOT NULL); (params [])
+DEBUG 2016-01-19 18:20:25,000 django.db.backends.schema: ALTER TABLE "sa_api_submittedthing" ADD COLUMN "dataset_id" integer NOT NULL; (params [])
+DEBUG 2016-01-19 18:20:25,001 django.db.backends.schema: ALTER TABLE "sa_api_submittedthing" ALTER COLUMN "dataset_id" DROP DEFAULT; (params [])
+DEBUG 2016-01-19 18:20:25,049 django.db.backends.schema: ALTER TABLE "sa_api_submittedthing" ADD COLUMN "submitter_id" integer NULL; (params [])
+DEBUG 2016-01-19 18:20:25,049 django.db.backends.schema: ALTER TABLE "sa_api_submittedthing" ALTER COLUMN "submitter_id" DROP DEFAULT; (params [])
+DEBUG 2016-01-19 18:20:25,096 django.db.backends.schema: ALTER TABLE "sa_api_submission" ADD COLUMN "place_id" integer NOT NULL; (params [])
+DEBUG 2016-01-19 18:20:25,096 django.db.backends.schema: ALTER TABLE "sa_api_submission" ALTER COLUMN "place_id" DROP DEFAULT; (params [])
+DEBUG 2016-01-19 18:20:25,144 django.db.backends.schema: ALTER TABLE "sa_api_v2_indexedvalue" ADD COLUMN "thing_id" integer NOT NULL; (params [])
+DEBUG 2016-01-19 18:20:25,144 django.db.backends.schema: ALTER TABLE "sa_api_v2_indexedvalue" ALTER COLUMN "thing_id" DROP DEFAULT; (params [])
+DEBUG 2016-01-19 18:20:25,189 django.db.backends.schema: ALTER TABLE "sa_api_group" ADD CONSTRAINT "sa_api_group_name_b4aef18e34783fe_uniq" UNIQUE ("name", "dataset_id"); (params [])
+DEBUG 2016-01-19 18:20:25,307 django.db.backends.schema: ALTER TABLE "sa_api_datasnapshot" ADD COLUMN "request_id" integer NOT NULL UNIQUE; (params [])
+DEBUG 2016-01-19 18:20:25,308 django.db.backends.schema: ALTER TABLE "sa_api_datasnapshot" ALTER COLUMN "request_id" DROP DEFAULT; (params [])
+DEBUG 2016-01-19 18:20:25,355 django.db.backends.schema: ALTER TABLE "sa_api_dataset" ADD CONSTRAINT "sa_api_dataset_owner_id_63d44153e81fd422_uniq" UNIQUE ("owner_id", "slug"); (params [])
+DEBUG 2016-01-19 18:20:25,403 django.db.backends.schema: ALTER TABLE "sa_api_v2_dataindex" ADD COLUMN "dataset_id" integer NOT NULL; (params [])
+DEBUG 2016-01-19 18:20:25,404 django.db.backends.schema: ALTER TABLE "sa_api_v2_dataindex" ALTER COLUMN "dataset_id" DROP DEFAULT; (params [])
+DEBUG 2016-01-19 18:20:25,447 django.db.backends.schema: ALTER TABLE "sa_api_attachment" ADD COLUMN "thing_id" integer NOT NULL; (params [])
+DEBUG 2016-01-19 18:20:25,448 django.db.backends.schema: ALTER TABLE "sa_api_attachment" ALTER COLUMN "thing_id" DROP DEFAULT; (params [])
+DEBUG 2016-01-19 18:20:25,495 django.db.backends.schema: ALTER TABLE "apikey_apikey" ADD COLUMN "dataset_id" integer NOT NULL; (params [])
+DEBUG 2016-01-19 18:20:25,495 django.db.backends.schema: ALTER TABLE "apikey_apikey" ALTER COLUMN "dataset_id" DROP DEFAULT; (params [])
+DEBUG 2016-01-19 18:20:25,543 django.db.backends.schema: ALTER TABLE "sa_api_activity" ADD COLUMN "data_id" integer NOT NULL; (params [])
+DEBUG 2016-01-19 18:20:25,543 django.db.backends.schema: ALTER TABLE "sa_api_activity" ALTER COLUMN "data_id" DROP DEFAULT; (params [])
+DEBUG 2016-01-19 18:20:25,592 django.db.backends.schema: CREATE TABLE "auth_user_groups" ("id" serial NOT NULL PRIMARY KEY, "user_id" integer NOT NULL, "group_id" integer NOT NULL, UNIQUE ("user_id", "group_id")); (params [])
+DEBUG 2016-01-19 18:20:25,643 django.db.backends.schema: CREATE TABLE "auth_user_user_permissions" ("id" serial NOT NULL PRIMARY KEY, "user_id" integer NOT NULL, "permission_id" integer NOT NULL, UNIQUE ("user_id", "permission_id")); (params [])
+DEBUG 2016-01-19 18:20:25,646 django.db.backends.schema: CREATE INDEX sa_api_activity_5ea8d64f ON "sa_api_activity" ("created_datetime"); (params [])
+DEBUG 2016-01-19 18:20:25,647 django.db.backends.schema: CREATE INDEX sa_api_activity_5965eaec ON "sa_api_activity" ("updated_datetime"); (params [])
+DEBUG 2016-01-19 18:20:25,647 django.db.backends.schema: CREATE INDEX sa_api_attachment_5ea8d64f ON "sa_api_attachment" ("created_datetime"); (params [])
+DEBUG 2016-01-19 18:20:25,648 django.db.backends.schema: CREATE INDEX sa_api_attachment_5965eaec ON "sa_api_attachment" ("updated_datetime"); (params [])
+DEBUG 2016-01-19 18:20:25,649 django.db.backends.schema: CREATE INDEX sa_api_v2_dataindex_2b9331d0 ON "sa_api_v2_dataindex" ("attr_name"); (params [])
+DEBUG 2016-01-19 18:20:25,649 django.db.backends.schema: CREATE INDEX sa_api_dataset_2dbcba41 ON "sa_api_dataset" ("slug"); (params [])
+DEBUG 2016-01-19 18:20:25,650 django.db.backends.schema: CREATE INDEX sa_api_dataset_5e7b1936 ON "sa_api_dataset" ("owner_id"); (params [])
+DEBUG 2016-01-19 18:20:25,650 django.db.backends.schema: ALTER TABLE "sa_api_dataset" ADD CONSTRAINT "sa_api_dataset_owner_id_468a563529a737c4_fk_auth_user_id" FOREIGN KEY ("owner_id") REFERENCES "auth_user" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:25,651 django.db.backends.schema: CREATE INDEX sa_api_v2_datasetpermission_d366d308 ON "sa_api_v2_datasetpermission" ("dataset_id"); (params [])
+DEBUG 2016-01-19 18:20:25,652 django.db.backends.schema: ALTER TABLE "sa_api_v2_datasetpermission" ADD CONSTRAINT "sa_api_v2_data_dataset_id_2f1c695b0668dc36_fk_sa_api_dataset_id" FOREIGN KEY ("dataset_id") REFERENCES "sa_api_dataset" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:25,652 django.db.backends.schema: CREATE INDEX sa_api_datasnapshotrequest_d366d308 ON "sa_api_datasnapshotrequest" ("dataset_id"); (params [])
+DEBUG 2016-01-19 18:20:25,653 django.db.backends.schema: ALTER TABLE "sa_api_datasnapshotrequest" ADD CONSTRAINT "sa_api_datasna_dataset_id_177c6725edc78c1c_fk_sa_api_dataset_id" FOREIGN KEY ("dataset_id") REFERENCES "sa_api_dataset" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:25,654 django.db.backends.schema: CREATE INDEX sa_api_datasnapshotrequest_573f8683 ON "sa_api_datasnapshotrequest" ("requester_id"); (params [])
+DEBUG 2016-01-19 18:20:25,655 django.db.backends.schema: ALTER TABLE "sa_api_datasnapshotrequest" ADD CONSTRAINT "sa_api_datasnapsh_requester_id_15bbe9d5206ae224_fk_auth_user_id" FOREIGN KEY ("requester_id") REFERENCES "auth_user" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:25,656 django.db.backends.schema: CREATE INDEX sa_api_group_d366d308 ON "sa_api_group" ("dataset_id"); (params [])
+DEBUG 2016-01-19 18:20:25,656 django.db.backends.schema: ALTER TABLE "sa_api_group" ADD CONSTRAINT "sa_api_group_dataset_id_22857e06c2389774_fk_sa_api_dataset_id" FOREIGN KEY ("dataset_id") REFERENCES "sa_api_dataset" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:25,657 django.db.backends.schema: CREATE INDEX sa_api_group_submitters_0e939a4f ON "sa_api_group_submitters" ("group_id"); (params [])
+DEBUG 2016-01-19 18:20:25,658 django.db.backends.schema: ALTER TABLE "sa_api_group_submitters" ADD CONSTRAINT "sa_api_group_submi_group_id_706fc13ce747c0eb_fk_sa_api_group_id" FOREIGN KEY ("group_id") REFERENCES "sa_api_group" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:25,659 django.db.backends.schema: CREATE INDEX sa_api_group_submitters_e8701ad4 ON "sa_api_group_submitters" ("user_id"); (params [])
+DEBUG 2016-01-19 18:20:25,659 django.db.backends.schema: ALTER TABLE "sa_api_group_submitters" ADD CONSTRAINT "sa_api_group_submitter_user_id_43a616cb40fcb764_fk_auth_user_id" FOREIGN KEY ("user_id") REFERENCES "auth_user" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:25,660 django.db.backends.schema: CREATE INDEX sa_api_v2_grouppermission_0e939a4f ON "sa_api_v2_grouppermission" ("group_id"); (params [])
+DEBUG 2016-01-19 18:20:25,660 django.db.backends.schema: ALTER TABLE "sa_api_v2_grouppermission" ADD CONSTRAINT "sa_api_v2_groupper_group_id_26b42a6e82f636d6_fk_sa_api_group_id" FOREIGN KEY ("group_id") REFERENCES "sa_api_group" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:25,661 django.db.backends.schema: CREATE INDEX sa_api_v2_indexedvalue_2063c160 ON "sa_api_v2_indexedvalue" ("value"); (params [])
+DEBUG 2016-01-19 18:20:25,662 django.db.backends.schema: CREATE INDEX sa_api_v2_indexedvalue_b618aa3c ON "sa_api_v2_indexedvalue" ("index_id"); (params [])
+DEBUG 2016-01-19 18:20:25,662 django.db.backends.schema: ALTER TABLE "sa_api_v2_indexedvalue" ADD CONSTRAINT "sa_api_v2_i_index_id_77abd9622c771278_fk_sa_api_v2_dataindex_id" FOREIGN KEY ("index_id") REFERENCES "sa_api_v2_dataindex" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:25,663 django.db.backends.schema: CREATE INDEX sa_api_v2_keypermission_30f69126 ON "sa_api_v2_keypermission" ("key_id"); (params [])
+DEBUG 2016-01-19 18:20:25,664 django.db.backends.schema: ALTER TABLE "sa_api_v2_keypermission" ADD CONSTRAINT "sa_api_v2_keypermiss_key_id_ae12c5d9eca483e_fk_apikey_apikey_id" FOREIGN KEY ("key_id") REFERENCES "apikey_apikey" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:25,664 django.db.backends.schema: CREATE INDEX cors_origin_d366d308 ON "cors_origin" ("dataset_id"); (params [])
+DEBUG 2016-01-19 18:20:25,665 django.db.backends.schema: ALTER TABLE "cors_origin" ADD CONSTRAINT "cors_origin_dataset_id_ff527324c1133da_fk_sa_api_dataset_id" FOREIGN KEY ("dataset_id") REFERENCES "sa_api_dataset" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:25,666 django.db.backends.schema: CREATE INDEX sa_api_v2_originpermission_c78b92ae ON "sa_api_v2_originpermission" ("origin_id"); (params [])
+DEBUG 2016-01-19 18:20:25,667 django.db.backends.schema: ALTER TABLE "sa_api_v2_originpermission" ADD CONSTRAINT "sa_api_v2_originpe_origin_id_356703d11f333be8_fk_cors_origin_id" FOREIGN KEY ("origin_id") REFERENCES "cors_origin" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:25,667 django.db.backends.schema: CREATE INDEX sa_api_submittedthing_5ea8d64f ON "sa_api_submittedthing" ("created_datetime"); (params [])
+DEBUG 2016-01-19 18:20:25,668 django.db.backends.schema: CREATE INDEX sa_api_submittedthing_5965eaec ON "sa_api_submittedthing" ("updated_datetime"); (params [])
+DEBUG 2016-01-19 18:20:25,669 django.db.backends.schema: CREATE INDEX sa_api_submittedthing_46cf0e59 ON "sa_api_submittedthing" ("visible"); (params [])
+DEBUG 2016-01-19 18:20:25,669 django.db.backends.schema: ALTER TABLE "sa_api_submission" ADD CONSTRAINT "D6dbbdba7855d20e43244675c94e576d" FOREIGN KEY ("submittedthing_ptr_id") REFERENCES "sa_api_submittedthing" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:25,670 django.db.backends.schema: CREATE INDEX sa_api_submission_8e2b615a ON "sa_api_submission" ("set_name"); (params [])
+DEBUG 2016-01-19 18:20:25,671 django.db.backends.schema: ALTER TABLE "sa_api_place" ADD CONSTRAINT "D13f5879944766561eed57a6350d2d31" FOREIGN KEY ("submittedthing_ptr_id") REFERENCES "sa_api_submittedthing" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:25,671 django.db.backends.schema: CREATE INDEX sa_api_webhook_5ea8d64f ON "sa_api_webhook" ("created_datetime"); (params [])
+DEBUG 2016-01-19 18:20:25,672 django.db.backends.schema: CREATE INDEX sa_api_webhook_5965eaec ON "sa_api_webhook" ("updated_datetime"); (params [])
+DEBUG 2016-01-19 18:20:25,672 django.db.backends.schema: CREATE INDEX sa_api_webhook_d366d308 ON "sa_api_webhook" ("dataset_id"); (params [])
+DEBUG 2016-01-19 18:20:25,673 django.db.backends.schema: ALTER TABLE "sa_api_webhook" ADD CONSTRAINT "sa_api_webhook_dataset_id_3be74d2f3b486f4_fk_sa_api_dataset_id" FOREIGN KEY ("dataset_id") REFERENCES "sa_api_dataset" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:25,674 django.db.backends.schema: CREATE INDEX sa_api_submittedthing_d366d308 ON "sa_api_submittedthing" ("dataset_id"); (params [])
+DEBUG 2016-01-19 18:20:25,674 django.db.backends.schema: ALTER TABLE "sa_api_submittedthing" ADD CONSTRAINT "sa_api_submitt_dataset_id_6e6765e0bf4139e3_fk_sa_api_dataset_id" FOREIGN KEY ("dataset_id") REFERENCES "sa_api_dataset" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:25,675 django.db.backends.schema: CREATE INDEX sa_api_submittedthing_a8919bbb ON "sa_api_submittedthing" ("submitter_id"); (params [])
+DEBUG 2016-01-19 18:20:25,676 django.db.backends.schema: ALTER TABLE "sa_api_submittedthing" ADD CONSTRAINT "sa_api_submittedt_submitter_id_72dc34b83061117e_fk_auth_user_id" FOREIGN KEY ("submitter_id") REFERENCES "auth_user" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:25,676 django.db.backends.schema: CREATE INDEX sa_api_submission_62becf4a ON "sa_api_submission" ("place_id"); (params [])
+DEBUG 2016-01-19 18:20:25,677 django.db.backends.schema: ALTER TABLE "sa_api_submission" ADD CONSTRAINT "D7f1a0a8f2912bc8d4a3641010a77ca3" FOREIGN KEY ("place_id") REFERENCES "sa_api_place" ("submittedthing_ptr_id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:25,677 django.db.backends.schema: CREATE INDEX sa_api_v2_indexedvalue_674dc8dc ON "sa_api_v2_indexedvalue" ("thing_id"); (params [])
+DEBUG 2016-01-19 18:20:25,678 django.db.backends.schema: ALTER TABLE "sa_api_v2_indexedvalue" ADD CONSTRAINT "sa_api_v2_thing_id_4de2efc41def53a8_fk_sa_api_submittedthing_id" FOREIGN KEY ("thing_id") REFERENCES "sa_api_submittedthing" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:25,679 django.db.backends.schema: ALTER TABLE "sa_api_datasnapshot" ADD CONSTRAINT "sa_request_id_681a1c8e9cf697db_fk_sa_api_datasnapshotrequest_id" FOREIGN KEY ("request_id") REFERENCES "sa_api_datasnapshotrequest" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:25,679 django.db.backends.schema: CREATE INDEX sa_api_v2_dataindex_d366d308 ON "sa_api_v2_dataindex" ("dataset_id"); (params [])
+DEBUG 2016-01-19 18:20:25,680 django.db.backends.schema: ALTER TABLE "sa_api_v2_dataindex" ADD CONSTRAINT "sa_api_v2_data_dataset_id_448c879f92bef137_fk_sa_api_dataset_id" FOREIGN KEY ("dataset_id") REFERENCES "sa_api_dataset" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:25,681 django.db.backends.schema: CREATE INDEX sa_api_attachment_674dc8dc ON "sa_api_attachment" ("thing_id"); (params [])
+DEBUG 2016-01-19 18:20:25,681 django.db.backends.schema: ALTER TABLE "sa_api_attachment" ADD CONSTRAINT "sa_api_at_thing_id_5901f0836a2ad267_fk_sa_api_submittedthing_id" FOREIGN KEY ("thing_id") REFERENCES "sa_api_submittedthing" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:25,682 django.db.backends.schema: CREATE INDEX apikey_apikey_d366d308 ON "apikey_apikey" ("dataset_id"); (params [])
+DEBUG 2016-01-19 18:20:25,683 django.db.backends.schema: ALTER TABLE "apikey_apikey" ADD CONSTRAINT "apikey_apikey_dataset_id_58bcddbcbdd568cd_fk_sa_api_dataset_id" FOREIGN KEY ("dataset_id") REFERENCES "sa_api_dataset" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:25,683 django.db.backends.schema: CREATE INDEX sa_api_activity_a565e755 ON "sa_api_activity" ("data_id"); (params [])
+DEBUG 2016-01-19 18:20:25,684 django.db.backends.schema: ALTER TABLE "sa_api_activity" ADD CONSTRAINT "sa_api_act_data_id_42865595bb339bda_fk_sa_api_submittedthing_id" FOREIGN KEY ("data_id") REFERENCES "sa_api_submittedthing" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:25,685 django.db.backends.schema: CREATE INDEX auth_user_groups_e8701ad4 ON "auth_user_groups" ("user_id"); (params [])
+DEBUG 2016-01-19 18:20:25,685 django.db.backends.schema: ALTER TABLE "auth_user_groups" ADD CONSTRAINT "auth_user_groups_user_id_4b5ed4ffdb8fd9b0_fk_auth_user_id" FOREIGN KEY ("user_id") REFERENCES "auth_user" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:25,686 django.db.backends.schema: CREATE INDEX auth_user_groups_0e939a4f ON "auth_user_groups" ("group_id"); (params [])
+DEBUG 2016-01-19 18:20:25,687 django.db.backends.schema: ALTER TABLE "auth_user_groups" ADD CONSTRAINT "auth_user_groups_group_id_33ac548dcf5f8e37_fk_auth_group_id" FOREIGN KEY ("group_id") REFERENCES "auth_group" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:25,687 django.db.backends.schema: CREATE INDEX auth_user_user_permissions_e8701ad4 ON "auth_user_user_permissions" ("user_id"); (params [])
+DEBUG 2016-01-19 18:20:25,689 django.db.backends.schema: ALTER TABLE "auth_user_user_permissions" ADD CONSTRAINT "auth_user_user_permiss_user_id_7f0938558328534a_fk_auth_user_id" FOREIGN KEY ("user_id") REFERENCES "auth_user" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:25,689 django.db.backends.schema: CREATE INDEX auth_user_user_permissions_8373b171 ON "auth_user_user_permissions" ("permission_id"); (params [])
+DEBUG 2016-01-19 18:20:25,690 django.db.backends.schema: ALTER TABLE "auth_user_user_permissions" ADD CONSTRAINT "auth_user__permission_id_384b62483d7071f0_fk_auth_permission_id" FOREIGN KEY ("permission_id") REFERENCES "auth_permission" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:25,804 django.db.backends.schema: CREATE TABLE "django_admin_log" ("id" serial NOT NULL PRIMARY KEY, "action_time" timestamp with time zone NOT NULL, "object_id" text NULL, "object_repr" varchar(200) NOT NULL, "action_flag" smallint NOT NULL CHECK ("action_flag" >= 0), "change_message" text NOT NULL, "content_type_id" integer NULL, "user_id" integer NOT NULL); (params [])
+DEBUG 2016-01-19 18:20:25,806 django.db.backends.schema: CREATE INDEX django_admin_log_417f1b1c ON "django_admin_log" ("content_type_id"); (params [])
+DEBUG 2016-01-19 18:20:25,807 django.db.backends.schema: ALTER TABLE "django_admin_log" ADD CONSTRAINT "djan_content_type_id_697914295151027a_fk_django_content_type_id" FOREIGN KEY ("content_type_id") REFERENCES "django_content_type" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:25,808 django.db.backends.schema: CREATE INDEX django_admin_log_e8701ad4 ON "django_admin_log" ("user_id"); (params [])
+DEBUG 2016-01-19 18:20:25,808 django.db.backends.schema: ALTER TABLE "django_admin_log" ADD CONSTRAINT "django_admin_log_user_id_52fdd58701c5f563_fk_auth_user_id" FOREIGN KEY ("user_id") REFERENCES "auth_user" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:25,849 django.db.backends.schema: CREATE TABLE "djkombu_message" ("id" serial NOT NULL PRIMARY KEY, "visible" boolean NOT NULL, "sent_at" timestamp with time zone NULL, "payload" text NOT NULL); (params [])
+DEBUG 2016-01-19 18:20:25,874 django.db.backends.schema: CREATE TABLE "djkombu_queue" ("id" serial NOT NULL PRIMARY KEY, "name" varchar(200) NOT NULL UNIQUE); (params [])
+DEBUG 2016-01-19 18:20:25,895 django.db.backends.schema: ALTER TABLE "djkombu_message" ADD COLUMN "queue_id" integer NOT NULL; (params [])
+DEBUG 2016-01-19 18:20:25,895 django.db.backends.schema: ALTER TABLE "djkombu_message" ALTER COLUMN "queue_id" DROP DEFAULT; (params [])
+DEBUG 2016-01-19 18:20:25,896 django.db.backends.schema: CREATE INDEX djkombu_message_46cf0e59 ON "djkombu_message" ("visible"); (params [])
+DEBUG 2016-01-19 18:20:25,896 django.db.backends.schema: CREATE INDEX djkombu_message_df2f2974 ON "djkombu_message" ("sent_at"); (params [])
+DEBUG 2016-01-19 18:20:25,897 django.db.backends.schema: CREATE INDEX djkombu_message_75249aa1 ON "djkombu_message" ("queue_id"); (params [])
+DEBUG 2016-01-19 18:20:25,898 django.db.backends.schema: ALTER TABLE "djkombu_message" ADD CONSTRAINT "djkombu_message_queue_id_12778caea7843dd_fk_djkombu_queue_id" FOREIGN KEY ("queue_id") REFERENCES "djkombu_queue" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:25,940 django.db.backends.schema: CREATE TABLE "remote_client_user_clientpermissions" ("id" serial NOT NULL PRIMARY KEY, "allow_remote_signin" boolean NOT NULL, "allow_remote_signup" boolean NOT NULL, "client_id" integer NOT NULL UNIQUE); (params [])
+DEBUG 2016-01-19 18:20:25,943 django.db.backends.schema: ALTER TABLE "remote_client_user_clientpermissions" ADD CONSTRAINT "remote_client_us_client_id_5c61bf26d88ddb9b_fk_oauth2_client_id" FOREIGN KEY ("client_id") REFERENCES "oauth2_client" ("id") DEFERRABLE INITIALLY DEFERRED; (params [])
+DEBUG 2016-01-19 18:20:25,989 django.db.backends.schema: CREATE TABLE "django_session" ("session_key" varchar(40) NOT NULL PRIMARY KEY, "session_data" text NOT NULL, "expire_date" timestamp with time zone NOT NULL); (params [])
+DEBUG 2016-01-19 18:20:25,992 django.db.backends.schema: CREATE INDEX django_session_de54fa62 ON "django_session" ("expire_date"); (params [])
+DEBUG 2016-01-19 18:20:26,032 django.db.backends.schema: CREATE TABLE "django_site" ("id" serial NOT NULL PRIMARY KEY, "domain" varchar(100) NOT NULL, "name" varchar(50) NOT NULL); (params [])
+DEBUG 2016-01-19 18:20:50,749 utils.request_timer: (0.062) "GET /" 302
+DEBUG 2016-01-19 18:20:50,800 utils.request_timer: (0.040) "GET /api/v2/" 200
+DEBUG 2016-01-19 18:20:50,889 utils.request_timer: (0.003) "GET /favicon.ico" 404
+DEBUG 2016-01-19 18:20:50,983 utils.request_timer: (0.003) "GET /favicon.ico" 404
+DEBUG 2016-01-19 18:20:54,022 utils.request_timer: (0.015) "GET /api/v2/" 200
+DEBUG 2016-01-19 18:20:56,705 utils.request_timer: (0.018) "GET /api/v2/" 200
+DEBUG 2016-01-19 18:22:20,700 django.db.backends: (0.004) SELECT postgis_lib_version(); args=None
+DEBUG 2016-01-19 18:22:20,955 django.db.backends: (0.004) SELECT postgis_lib_version(); args=None
+DEBUG 2016-01-19 18:22:21,041 django.db.backends: (0.002) 
+            SELECT c.relname
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('r', 'v', '')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid); args=None
+DEBUG 2016-01-19 18:22:21,043 django.db.backends: (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2016-01-19 18:22:30,687 django.db.backends: (0.004) SELECT postgis_lib_version(); args=None
+DEBUG 2016-01-19 18:22:30,951 django.db.backends: (0.005) SELECT postgis_lib_version(); args=None
+DEBUG 2016-01-19 18:22:31,034 django.db.backends: (0.002) 
+            SELECT c.relname
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('r', 'v', '')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid); args=None
+DEBUG 2016-01-19 18:22:31,036 django.db.backends: (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2016-01-19 18:22:36,916 django.db.backends: (0.005) SELECT postgis_lib_version(); args=None
+DEBUG 2016-01-19 18:22:36,999 django.db.backends: (0.001) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."session_key" = 'ad1sevnfyud2183fd2fcftzcmqo6qm60' AND "django_session"."expire_date" > '2016-01-19 18:22:36.995357+00:00') LIMIT 21; args=('ad1sevnfyud2183fd2fcftzcmqo6qm60', u'2016-01-19 18:22:36.995357+00:00')
+DEBUG 2016-01-19 18:22:37,040 utils.request_timer: (0.122) "GET /api/v2/" 200
+DEBUG 2016-01-19 18:22:37,067 django.db.backends: (0.004) SELECT postgis_lib_version(); args=None
+DEBUG 2016-01-19 18:22:37,072 django.db.backends: (0.017) SELECT postgis_lib_version(); args=None
+DEBUG 2016-01-19 18:22:37,087 django.db.backends: (0.005) SELECT postgis_lib_version(); args=None
+DEBUG 2016-01-19 18:22:37,094 django.db.backends: (0.018) SELECT postgis_lib_version(); args=None
+DEBUG 2016-01-19 18:22:37,108 django.db.backends: (0.009) SELECT postgis_lib_version(); args=None
+DEBUG 2016-01-19 18:22:37,123 django.db.backends: (0.009) SELECT postgis_lib_version(); args=None
+DEBUG 2016-01-19 18:22:37,134 django.db.backends: (0.005) SELECT postgis_lib_version(); args=None
+DEBUG 2016-01-19 18:22:37,152 django.db.backends: (0.008) SELECT postgis_lib_version(); args=None
+DEBUG 2016-01-19 18:22:37,209 django.db.backends: (0.004) SELECT postgis_lib_version(); args=None
+DEBUG 2016-01-19 18:22:45,419 django.db.backends: (0.004) SELECT postgis_lib_version(); args=None
+DEBUG 2016-01-19 18:22:45,423 django.db.backends: (0.001) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."session_key" = 'ad1sevnfyud2183fd2fcftzcmqo6qm60' AND "django_session"."expire_date" > '2016-01-19 18:22:45.420401+00:00') LIMIT 21; args=('ad1sevnfyud2183fd2fcftzcmqo6qm60', u'2016-01-19 18:22:45.420401+00:00')
+DEBUG 2016-01-19 18:22:45,440 utils.request_timer: (0.021) "GET /api/v2/" 200
+DEBUG 2016-01-19 18:22:45,464 django.db.backends: (0.009) SELECT postgis_lib_version(); args=None
+DEBUG 2016-01-19 18:22:45,484 django.db.backends: (0.006) SELECT postgis_lib_version(); args=None
+DEBUG 2016-01-19 18:22:45,485 django.db.backends: (0.013) SELECT postgis_lib_version(); args=None
+DEBUG 2016-01-19 18:22:45,508 django.db.backends: (0.006) SELECT postgis_lib_version(); args=None
+DEBUG 2016-01-19 18:22:45,509 django.db.backends: (0.014) SELECT postgis_lib_version(); args=None
+DEBUG 2016-01-19 18:22:45,528 django.db.backends: (0.012) SELECT postgis_lib_version(); args=None
+DEBUG 2016-01-19 18:22:45,529 django.db.backends: (0.007) SELECT postgis_lib_version(); args=None
+DEBUG 2016-01-19 18:22:45,545 django.db.backends: (0.004) SELECT postgis_lib_version(); args=None
+DEBUG 2016-01-19 18:22:45,605 django.db.backends: (0.004) SELECT postgis_lib_version(); args=None
