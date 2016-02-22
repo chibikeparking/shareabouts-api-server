@@ -29,3 +29,4 @@ env/
 
 # Local project settings
 src/project/local_settings.py
+src/debug.log
